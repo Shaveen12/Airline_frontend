@@ -1,0 +1,37 @@
+<div class="booking-container">
+  <h2>Select Your Seats ({{ ticketType }})</h2>
+
+  <!-- Seat Grid Display -->
+  <div *ngIf="ticketType === 'Economy' || ticketType === 'Business' || ticketType === 'Platinum'">
+    <div class="seats-grid" [style.gridTemplateColumns]="gridColumns">
+      <div 
+        *ngFor="let seat of allSeats" 
+        [ngClass]="{
+          'available': availableSeats.includes(seat),
+          'blocked': !availableSeats.includes(seat),
+          'selected': selectedSeats.includes(seat)
+        }"
+        (click)="!availableSeats.includes(seat) || selectedSeats.length >= maxSeats ? null : toggleSeatSelection(seat)"
+      >
+        {{ seat }}
+      </div>
+    </div>
+  </div>
+
+  <!-- List of Selected Seats -->
+  <h3>Selected Seats:</h3>
+  <ul class="selected-seats-list">
+    <li *ngFor="let seat of selectedSeats">
+      {{ seat }}
+      <button class="remove-seat-button" (click)="removeSeat(seat)">Remove</button>
+    </li>
+  </ul>
+
+  <!-- Confirm Button -->
+  <button 
+    class="confirm-button" 
+    (click)="confirmBooking()" 
+    [disabled]="selectedSeats.length === 0">
+    Confirm Seats
+  </button>
+</div>

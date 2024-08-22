@@ -1,0 +1,89 @@
+.booking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.seats-grid {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.seats-grid div {
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.seats-grid .available {
+  background-color: #4caf50; /* Green for available seats */
+  color: white;
+}
+
+.seats-grid .blocked {
+  background-color: #f44336; /* Red for blocked seats */
+  color: white;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.seats-grid .selected {
+  background-color: #2196f3; /* Blue for selected seats */
+  color: white;
+}
+
+.selected-seats-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.selected-seats-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.remove-seat-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 3px;
+}
+
+.remove-seat-button:hover {
+  background-color: #d32f2f;
+}
+
+.confirm-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #007bff; /* Blue background for the button */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visual appeal */
+}
+
+.confirm-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-3px); /* Slight lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.confirm-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

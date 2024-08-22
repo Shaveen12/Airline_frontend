@@ -1,0 +1,86 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit()" [formGroup]="travelForm">
+    <!-- Form inputs for source, destination, date range -->
+    <div class="form-group">
+      <label for="source">Source</label>
+      <input
+        id="source"
+        type="text"
+        formControlName="source"
+        placeholder="Enter source"
+        (input)="filterAirports(travelForm.get('source')?.value, 'source')"
+        autocomplete="off"
+      />
+      <ul *ngIf="filteredSourceAirports.length > 0" class="autocomplete-list">
+        <li
+          *ngFor="let airport of filteredSourceAirports"
+          (click)="selectAirport('source', airport)"
+        >
+          {{ airport.code }} - {{ airport.location }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <label for="destination">Destination</label>
+      <input
+        id="destination"
+        type="text"
+        formControlName="destination"
+        placeholder="Enter destination"
+        (input)="filterAirports(travelForm.get('destination')?.value, 'destination')"
+        autocomplete="off"
+      />
+      <ul *ngIf="filteredDestinationAirports.length > 0" class="autocomplete-list">
+        <li
+          *ngFor="let airport of filteredDestinationAirports"
+          (click)="selectAirport('destination', airport)"
+        >
+          {{ airport.code }} - {{ airport.location }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date</label>
+      <input id="startDate" type="date" formControlName="startDate" />
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">End Date</label>
+      <input id="endDate" type="date" formControlName="endDate" />
+    </div>
+
+    <!-- Display error message if the form is invalid -->
+    <div *ngIf="showError" class="error-message">
+      The form is invalid. Please correct the errors.
+    </div>
+
+    <!-- Display specific date range error -->
+    <div *ngIf="travelForm.errors?.['dateRangeInvalid'] && !showError" class="error-message">
+      End date must be after the start date.
+    </div>
+
+    <button type="submit">Search Flights</button>
+  </form>
+
+  <!-- Display the "No Flights Found" message -->
+  <div *ngIf="noFlightsFound" class="no-flights-message">
+    No flights found for the selected dates.
+  </div>
+
+  <!-- Display flights if available -->
+  <div *ngIf="flights.length > 0" class="flights-list">
+    <h3>Available Flights:</h3>
+    <ul>
+      <li *ngFor="let flight of flights" class="flight-item">
+        <div class="flight-info">
+          <span>{{ flight.source_airport_code }} to {{ flight.destination_airport_code }}</span>
+          <span>Departure: {{ flight.date_time }}</span>
+        </div>
+        <button class="view-details-button" (click)="onFlightAction(flight)">View Details</button>
+      </li>
+    </ul>
+  </div>
+  
+</div>

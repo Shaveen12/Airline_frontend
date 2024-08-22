@@ -1,0 +1,55 @@
+<div class="passenger-details-container">
+  <h2>Passenger Details</h2>
+
+  <!-- Timer Display -->
+  <div class="timer-display">
+      Time Remaining: {{ formatTime(timeLeft) }}
+  </div>
+
+  <form [formGroup]="passengerForm" (ngSubmit)="onSubmit()">
+      <!-- Passenger Forms -->
+      <div formArrayName="passengers" *ngFor="let passenger of passengers.controls; let i = index">
+          <h3>Passenger {{ i + 1 }}</h3>
+
+          <div [formGroupName]="i" class="passenger-form">
+              <div class="form-group">
+                  <label for="user_id_{{ i }}">User ID (optional)</label>
+                  <input id="user_id_{{ i }}" formControlName="user_id" type="text" placeholder="Enter user ID (optional)">
+              </div>
+
+              <div class="form-group">
+                  <label for="first_name_{{ i }}">First Name</label>
+                  <input id="first_name_{{ i }}" formControlName="first_name" type="text" placeholder="Enter first name" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="last_name_{{ i }}">Last Name</label>
+                  <input id="last_name_{{ i }}" formControlName="last_name" type="text" placeholder="Enter last name" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="dob_{{ i }}">Date of Birth</label>
+                  <input id="dob_{{ i }}" formControlName="dob" type="date" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="gender_{{ i }}">Gender</label>
+                  <select id="gender_{{ i }}" formControlName="gender" required>
+                      <option value="" disabled selected>Select gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <label for="passport_number_{{ i }}">Passport Number</label>
+                  <input id="passport_number_{{ i }}" formControlName="passport_number" type="text" placeholder="Enter passport number" required>
+              </div>
+          </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-button">Proceed To Payment</button>
+  </form>
+</div>

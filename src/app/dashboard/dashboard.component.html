@@ -1,0 +1,23 @@
+<div class="dashboard-container">
+    <h2>Dashboard</h2>
+  
+    <!-- If the user is logged in, display their information -->
+    <div *ngIf="authService.isLoggedIn(); else guestView">
+      <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Gender:</strong> {{ user.gender }}</p>
+      <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
+      <p><strong>Passport Number:</strong> {{ user.passport_number }}</p>
+      <p><strong>Flight Count:</strong> {{ user.flight_count }}</p>
+      <p><strong>Tier:</strong> {{ user.tier }}</p>
+      <button (click)="logout()" class="btn-secondary">logout</button>
+    </div>
+  
+    <!-- Guest View -->
+    <ng-template #guestView>
+      <p>You are currently browsing as a Guest.</p>
+      <button (click)="navigateToLogin()" class="btn-primary">Login</button>
+      <button (click)="navigateToRegister()" class="btn-secondary">Register</button>
+    </ng-template>
+  </div>
+  

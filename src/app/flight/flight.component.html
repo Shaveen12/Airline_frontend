@@ -1,0 +1,47 @@
+<div class="flight-details-container">
+  <div *ngIf="flightDetails">
+    <h2>Flight Details</h2>
+    <p><strong>Flight Number:</strong> {{ flightDetails.flight_no }}</p>
+    <p><strong>Departure:</strong> {{ flightDetails.source_airport_code }}</p>
+    <p><strong>Arrival:</strong> {{ flightDetails.destination_airport_code }}</p>
+    <p><strong>Departure Time:</strong> {{ flightDetails.date_time }}</p>
+
+    <!-- Display ticket prices -->
+    <h3>Ticket Prices</h3>
+    <p><strong>Economy Price:</strong> ${{ flightDetails.economy_price }}</p>
+    <p><strong>Business Price:</strong> ${{ flightDetails.business_price }}</p>
+    <p><strong>Platinum Price:</strong> ${{ flightDetails.platinum_price }}</p>
+
+    <!-- Booking Form -->
+    <div class="booking-form">
+      <form [formGroup]="ticketForm" (ngSubmit)="onBookFlight()">
+        <div class="form-group">
+          <label for="category">Ticket Category</label>
+          <select id="category" formControlName="category">
+            <option value="" disabled>Select a category</option>
+            <option value="Economy">Economy</option>
+            <option value="Business">Business</option>
+            <option value="Platinum">Platinum</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="numberOfTickets">Number of Tickets</label>
+          <input
+            type="number"
+            id="numberOfTickets"
+            formControlName="numberOfTickets"
+            min="1"
+            placeholder="Enter number of tickets"
+          />
+        </div>
+
+        <button type="submit" [disabled]="!ticketForm.valid">Book Now</button>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="!flightDetails" class="loading-message">
+    <p>Loading flight details...</p>
+  </div>
+</div>
