@@ -76,7 +76,7 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
       .pipe(take(this.timeLeft + 1))  // Adjust to take the full range of timeLeft
       .subscribe({
         next: () => {
-          console.log("Inside subscribe - timeLeft:", this.timeLeft);
+          //console.log("Inside subscribe - timeLeft:", this.timeLeft);
   
           if (this.timeLeft > 0) {
             this.timeLeft--;

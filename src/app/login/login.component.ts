@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,12 +16,12 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private UserService: UserService, private router: Router) {}
 
   onLogin() {
     console.log('Logging in with', this.email,);
     console.log("Password", this.password);
-    this.authService.login(this.email, this.password).subscribe({
+    this.UserService.login(this.email, this.password).subscribe({
       next: (user) => {
         console.log('Login successful', user.user_id, user.email);
         this.router.navigate(['/dashboard']); // Navigate to the dashboard after login

@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
   private apiUrl = 'http://localhost:3000/user'; // Replace with your actual backend URL
   private userSubject = new BehaviorSubject<any>(null); // Holds the logged-in user's data
 

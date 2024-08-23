@@ -2,7 +2,7 @@
     <h2>Dashboard</h2>
   
     <!-- If the user is logged in, display their information -->
-    <div *ngIf="authService.isLoggedIn(); else guestView">
+    <div *ngIf="UserService.isLoggedIn(); else guestView">
       <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Gender:</strong> {{ user.gender }}</p>
@@ -10,6 +10,7 @@
       <p><strong>Passport Number:</strong> {{ user.passport_number }}</p>
       <p><strong>Flight Count:</strong> {{ user.flight_count }}</p>
       <p><strong>Tier:</strong> {{ user.tier }}</p>
+      <p><strong>User id: {{user.user_id}}</strong></p>
       <button (click)="logout()" class="btn-secondary">logout</button>
     </div>
   

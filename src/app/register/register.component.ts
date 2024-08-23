@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,7 @@ export class RegisterComponent {
   gender: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private UserService: UserService, private router: Router) {}
 
   onRegister() {
     const user = {
@@ -36,7 +36,7 @@ export class RegisterComponent {
       gender: this.gender
     };
 
-    this.authService.register(user).subscribe({
+    this.UserService.register(user).subscribe({
       next: (response) => {
         console.log('Registration successful', response);
         this.router.navigate(['/login']); // Navigate to the login page after successful registration

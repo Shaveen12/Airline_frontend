@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -13,8 +13,9 @@ import { CommonModule } from '@angular/common';
 export class DashboardComponent {
   user: any;
 
-  constructor(public authService: AuthService, private router: Router) {
-    this.user = this.authService.getUser();
+  constructor(public UserService: UserService, private router: Router) {
+    this.user = this.UserService.getUser();
+    console.log("User: ", this.user);
   }
 
   // Method to navigate to the login page
@@ -28,6 +29,6 @@ export class DashboardComponent {
   }
 
   logout() {
-    this.authService.logout();
+    this.UserService.logout();
   }
 }

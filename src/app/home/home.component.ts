@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { dateRangeValidator } from '../validators/date-range.validator';
 import { ScheduleService } from '../schedule.service';
 import { Router } from '@angular/router';
+import { airports } from '../data/airports.data';
 
 @Component({
   selector: 'app-home',
@@ -22,19 +23,7 @@ export class HomeComponent {
   filteredDestinationAirports: any[] = []; // For destination input
 
   // Sample list of airports with codes and locations
-  airports = [
-    { code: 'CGK', location: 'Jakarta, Indonesia' },
-    { code: 'DPS', location: 'Denpasar, Indonesia' },
-    { code: 'BIA', location: 'Colombo, Sri Lanka' },
-    { code: 'HRI', location: 'Hambantota, Sri Lanka' },
-    { code: 'DEL', location: 'New Delhi, India' },
-    { code: 'BOM', location: 'Mumbai, India' },
-    { code: 'MAA', location: 'Chennai, India' },
-    { code: 'BKK', location: 'Bangkok, Thailand' },
-    { code: 'DMK', location: 'Bangkok, Thailand' },
-    { code: 'SIN', location: 'Singapore' }
-  ];
-
+  airports = airports; // Import the airports data from the airports.data.ts file
   constructor(
     private fb: FormBuilder,
     private scheduleService: ScheduleService,
@@ -63,7 +52,7 @@ export class HomeComponent {
   }
 
   selectAirport(controlName: string, airport: any) {
-    this.travelForm.get(controlName)?.setValue(airport.code);
+    this.travelForm.get(controlName)?.setValue(airport.location);
     if (controlName === 'source') {
       this.filteredSourceAirports = []; // Clear the list after selection
     } else if (controlName === 'destination') {
@@ -77,9 +66,14 @@ export class HomeComponent {
 
     if (this.travelForm.valid) {
       const { source, destination, startDate, endDate } = this.travelForm.value;
+      // console.log("testing form values");
+      // console.log('Form data:', source, destination);
+      var temp1: string= source.slice(-3);
+      var temp2: string= destination.slice(-3);
+      //usconsole.log('Form data:', temp1, temp2);
 
       // Call the service to get flights using the observer object
-      this.scheduleService.getFlights(startDate, endDate, source, destination).subscribe({
+      this.scheduleService.getFlights(startDate, endDate, temp1, temp2).subscribe({
         next: (data) => {
           this.flights = data[0]; // Handle the API response
           if (this.flights.length === 0) {
