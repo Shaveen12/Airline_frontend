@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private apiUrl = 'http://localhost:3000/user'; // Replace with your actual backend URL
@@ -22,12 +22,16 @@ export class UserService {
     const body = { email, password };
 
     return this.http.post(`${this.apiUrl}/login`, body).pipe(
-      tap(user => {
+      tap((user) => {
         // Save user data to the BehaviorSubject and localStorage
         this.userSubject.next(user);
         localStorage.setItem('user', JSON.stringify(user));
       })
     );
+  }
+
+  getUserBookings(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/user-bookings/${userId}`);
   }
 
   register(user: any): Observable<any> {

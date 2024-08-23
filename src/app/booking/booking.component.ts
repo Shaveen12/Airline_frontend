@@ -84,7 +84,7 @@ export class BookingComponent implements OnInit {
   }
 
   async confirmBooking() {
-    if (this.selectedSeats.length > 0) {
+    if (this.selectedSeats.length ==  this.maxSeats) {
       console.log('Selected seats:', this.selectedSeats);
       this.bookingService.setSelectedSeats(this.selectedSeats);
 

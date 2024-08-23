@@ -1,23 +1,44 @@
-/* Container Styling */
-.container {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+
+
+/* Ensure the wrapper takes up the full height of the viewport */
+.wrapper {
+  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #f1f1f1; /* Optional: Background color for contrast */
 }
 
-/* Form Styling */
-form {
+/* Container Styling */
+.container {
+  max-width: 1300px;
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  opacity: 0.85;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+}
+/* Form Styling */
+form {
+  width: 100%;
+  display: flex;
+  flex-wrap: ; /* Allow wrapping of elements */
+  gap: 20px; /* Space between form elements */
+  justify-content: center; /* Center elements horizontally */
+  align-items: center; /* Center elements vertically */
+  flex-direction: row;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  flex: 1 1 calc(50% - 20px); /* 50% width minus the gap for spacing */
+  min-width: 200px; /* Ensure a minimum width for smaller screens */
+  margin-bottom: 20px; /* Add space below each form group */
 }
 
 label {
@@ -36,6 +57,8 @@ input[type="date"] {
   border-radius: 5px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s ease;
+  width: 100%; /* Ensure the input fields take the full width of their container */
+  box-sizing: border-box; /* Include padding and border in element's width and height */
 }
 
 input[type="text"]:focus,
@@ -46,7 +69,7 @@ input[type="date"]:focus {
 }
 
 button[type="submit"] {
-  padding: 12px;
+  padding: 12px 24px;
   background-color: #007bff;
   color: #ffffff;
   font-size: 16px;
@@ -56,6 +79,9 @@ button[type="submit"] {
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
+  margin-top: 20px;
+  margin-bottom: 19px;
+  flex: 1 1 30%; /* Make the submit button take up full width */
 }
 
 button[type="submit"]:hover {
@@ -72,7 +98,7 @@ button[type="submit"]:hover {
   border: 1px solid #cccccc;
   border-radius: 5px;
   margin-top: 2px;
-  width: 100%;
+  width: calc(100% - 24px); /* Match the width of the input */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -93,6 +119,7 @@ button[type="submit"]:hover {
   margin-bottom: 15px;
   font-weight: 600;
   text-align: center;
+  flex: 1 1 100%; /* Make the messages take up full width */
 }
 
 .error-message {
@@ -182,11 +209,16 @@ button[type="submit"]:hover {
     padding: 15px;
   }
 
-  input[type="text"],
-  input[type="date"],
+  form {
+    flex-direction: column; /* Stack elements vertically on small screens */
+  }
+
+  .form-group {
+    flex: 1 1 100%; /* Make form fields take full width */
+  }
+
   button[type="submit"] {
-    font-size: 14px;
-    padding: 10px;
+    flex: 1 1 100%;
   }
 
   .flight-item {

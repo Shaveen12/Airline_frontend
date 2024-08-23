@@ -1,24 +1,55 @@
 <div class="dashboard-container">
-    <h2>Dashboard</h2>
-  
-    <!-- If the user is logged in, display their information -->
-    <div *ngIf="UserService.isLoggedIn(); else guestView">
-      <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
-      <p><strong>Gender:</strong> {{ user.gender }}</p>
-      <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
-      <p><strong>Passport Number:</strong> {{ user.passport_number }}</p>
-      <p><strong>Flight Count:</strong> {{ user.flight_count }}</p>
-      <p><strong>Tier:</strong> {{ user.tier }}</p>
-      <p><strong>User id: {{user.user_id}}</strong></p>
-      <button (click)="logout()" class="btn-secondary">logout</button>
-    </div>
-  
-    <!-- Guest View -->
-    <ng-template #guestView>
-      <p>You are currently browsing as a Guest.</p>
-      <button (click)="navigateToLogin()" class="btn-primary">Login</button>
-      <button (click)="navigateToRegister()" class="btn-secondary">Register</button>
+  <h2>Dashboard</h2>
+
+  <div *ngIf="userService.isLoggedIn(); else guestView">
+    <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Gender:</strong> {{ user.gender }}</p>
+    <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
+    <p><strong>Passport Number:</strong> {{ user.passport_number }}</p>
+    <p><strong>Flight Count:</strong> {{ user.flight_count }}</p>
+    <p><strong>Tier:</strong> {{ user.tier }}</p>
+    <p><strong>User id:</strong> {{ user.user_id }}</p>
+    <hr>
+    <button (click)="logout()" class="btn-secondary logout-button">Logout</button>
+    <br>
+
+    <h3>Upcoming Flights</h3>
+    <ul *ngIf="upcomingFlights.length > 0; else noUpcomingFlights">
+      <li *ngFor="let booking of upcomingFlights">
+        <p><strong>Flight Number:</strong> {{ booking.flight_no }}</p>
+        <p><strong>From:</strong> {{ booking.sourceLocation }}</p>
+        <p><strong>To:</strong> {{ booking.destinationLocation }}</p>
+        <p><strong>Date & Time:</strong> {{ booking.date_time }}</p>
+        <p><strong>Ticket Type:</strong> {{ booking.ticket_type }}</p>
+        <p><strong>Price:</strong> ${{ booking.price }}</p>
+        <hr>
+      </li>
+    </ul>
+    <ng-template #noUpcomingFlights>
+      <p>No upcoming flights.</p>
+    </ng-template>
+
+    <h3>Past Flights</h3>
+    <ul *ngIf="pastFlights.length > 0; else noPastFlights">
+      <li *ngFor="let booking of pastFlights">
+        <p><strong>Flight Number:</strong> {{ booking.flight_no }}</p>
+        <p><strong>From:</strong> {{ booking.sourceLocation }}</p>
+        <p><strong>To:</strong> {{ booking.destinationLocation }}</p>
+        <p><strong>Date & Time:</strong> {{ booking.date_time }}</p>
+        <p><strong>Ticket Type:</strong> {{ booking.ticket_type }}</p>
+        <p><strong>Price:</strong> ${{ booking.price }}</p>
+        <hr>
+      </li>
+    </ul>
+    <ng-template #noPastFlights>
+      <p>No past flights.</p>
     </ng-template>
   </div>
-  
+
+  <ng-template #guestView>
+    <p>You are currently browsing as a Guest.</p>
+    <button (click)="navigateToLogin()" class="btn-primary">Login</button>
+    <button (click)="navigateToRegister()" class="btn-secondary">Register</button>
+  </ng-template>
+</div>

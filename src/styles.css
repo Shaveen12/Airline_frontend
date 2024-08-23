@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+body, html {
+    height: 100%;
+  }
+  
+  body {
+    background: url('../public/Images/ross-parmly-rf6ywHVkrlY-unsplash.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif; /* Add a global font style if needed */
+  }
+  
+  /* Ensure all your Angular components are full height */
+ app-root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+   
