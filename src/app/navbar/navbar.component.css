@@ -1,9 +1,10 @@
 /* Navbar Container */
 .navbar {
-  background-color: #0008ff;
+  background-color: #E8EFFF;
   padding: 15px 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  opacity: 0.9;
 }
 
 .navbar-container {
@@ -16,13 +17,13 @@
 .navbar-brand {
   font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
+  color: #007AF6;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .navbar-brand:hover {
-  color: #dddddd;
+  color: #007AF6;
 }
 
 /* Navbar Navigation */
@@ -39,7 +40,7 @@
 
 .nav-link {
   font-size: 16px;
-  color: #ffffff;
+  color: #007AF6;
   text-decoration: none;
   font-weight: 600;
   padding: 8px 12px;
@@ -53,10 +54,10 @@
 }
 
 /* Active Link Styling */
-.active {
+/* .active {
   background-color: #0056b3;
   color: #ffffff;
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 600px) {
