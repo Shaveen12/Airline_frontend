@@ -48,7 +48,7 @@ export class FlightDetailsComponent implements OnInit {
 
           };
 
-          this.scheduleService.setSeats(seats);
+          //this.scheduleService.setSeats(seats);
         },
         (error) => {
           console.error('Error fetching flight details:', error);

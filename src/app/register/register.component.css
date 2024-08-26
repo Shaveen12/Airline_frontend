@@ -54,4 +54,21 @@
   .btn-primary:hover {
     background-color: #0056b3;
   }
+
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px; /* Reduced margin to align with the "Login" button */
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
   

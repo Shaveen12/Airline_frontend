@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/user'; // Replace with your actual backend URL
+  private apiUrl = 'http://localhost:3000/user'; 
   private userSubject = new BehaviorSubject<any>(null); // Holds the logged-in user's data
 
   constructor(private http: HttpClient) {

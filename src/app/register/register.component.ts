@@ -20,6 +20,9 @@ export class RegisterComponent {
   passportNumber: string = '';
   tier: string = 'Guest'; // Default to "Guest"
   gender: string = '';
+  address: string = ''; 
+  state: string = '';   
+  country: string = ''; 
   errorMessage: string = '';
 
   constructor(private UserService: UserService, private router: Router) {}
@@ -33,7 +36,10 @@ export class RegisterComponent {
       dob: this.dob,
       passport_number: this.passportNumber,
       tier: this.tier,
-      gender: this.gender
+      gender: this.gender,
+      address: this.address,   
+      state: this.state,       
+      country: this.country    
     };
 
     this.UserService.register(user).subscribe({
@@ -46,5 +52,9 @@ export class RegisterComponent {
         this.errorMessage = 'Failed to register. Please try again.';
       }
     });
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']); 
   }
 }

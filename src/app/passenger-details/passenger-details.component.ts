@@ -65,28 +65,26 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
       last_name: ['', Validators.required],
       dob: ['', Validators.required],
       gender: ['', Validators.required],
-      passport_number: ['', Validators.required]
+      passport_number: ['', Validators.required],
+      address: ['', Validators.required], 
+      state: ['', Validators.required],
+      country: ['', Validators.required], 
     });
   }
 
   startTimer(): void {
-    //console.log('Timer started with timeLeft:', this.timeLeft);
-  
     this.timerSubscription = interval(1000)
       .pipe(take(this.timeLeft + 1))  // Adjust to take the full range of timeLeft
       .subscribe({
         next: () => {
-          //console.log("Inside subscribe - timeLeft:", this.timeLeft);
-  
           if (this.timeLeft > 0) {
             this.timeLeft--;
-            //console.log('Time left:', this.formatTime(this.timeLeft));
           }
-  
+
           if (this.timeLeft === 0) {
-            alert('Time is up! Please try again.');  // Show an alert when the timer ends
+            alert('Time is up! Please try again.');
             console.log('Time is up! Redirecting to booking page...');
-            this.router.navigate(['/booking']);  // Redirect to the booking component when the timer ends
+            this.router.navigate(['/booking']);
           }
         },
         complete: () => {
@@ -96,8 +94,8 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
           console.error("Timer encountered an error:", err);
         }
       });
-  };
-  
+  }
+
   clearTimer(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
@@ -124,6 +122,9 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
         dob: passenger.dob,
         gender: passenger.gender,
         passport_number: passenger.passport_number,
+        address: passenger.address, 
+        state: passenger.state, 
+        country: passenger.country, 
       }));
 
       console.log('Booking data array:', bookingDataArray);

@@ -20,20 +20,27 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.getUser();
-    console.log("User: ", this.user);
 
-    this.userService.getUserBookings(this.user.user_id).subscribe(bookings => {
-      const now = new Date();
-      bookings.forEach(booking => {
-        booking.sourceLocation = this.getAirportLocation(booking.source_airport_code);
-        booking.destinationLocation = this.getAirportLocation(booking.destination_airport_code);
-        if (new Date(booking.date_time) > now) {
-          this.upcomingFlights.push(booking);
-        } else {
-          this.pastFlights.push(booking);
-        }
+    if (this.user) {
+      console.log("User: ", this.user);
+
+      this.userService.getUserBookings(this.user.user_id).subscribe(bookings => {
+        const now = new Date();
+        bookings.forEach(booking => {
+          booking.sourceLocation = this.getAirportLocation(booking.source_airport_code);
+          booking.destinationLocation = this.getAirportLocation(booking.destination_airport_code);
+          if (new Date(booking.date_time) > now) {
+            this.upcomingFlights.push(booking);
+          } else {
+            this.pastFlights.push(booking);
+          }
+        });
       });
-    });
+    } else {
+      console.error('User is not logged in.');
+      // Redirect to the login page if the user is not logged in
+      //this.router.navigate(['/login']);
+    }
   }
 
   getAirportLocation(code: string): string {

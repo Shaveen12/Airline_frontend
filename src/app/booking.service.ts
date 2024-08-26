@@ -66,6 +66,9 @@ export class BookingService {
     dob: string;
     gender: string;
     passport_number: string;
+    address: string; 
+    state: string;   
+    country: string; 
   }): Observable<any> {
     const url = `${this.baseUrl}/addBooking`;
 
