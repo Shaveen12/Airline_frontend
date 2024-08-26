@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,7 @@ export class BookingService {
   private bookingDetails: any = {};
   private maxSeats: number = 1;
   private selectedSeats: string[] = [];
-  private passengerDetailsArray: any[] = [];
+  private passengerDetails: any[] = [];
 
   baseUrl = 'http://localhost:3000/booking';
 
@@ -74,7 +76,7 @@ export class BookingService {
     const url = `${this.baseUrl}/addBooking`;
 
     return this.http.post(url, bookingData).pipe(
-      tap(() => this.passengerDetailsArray.push(bookingData)), // Save booking data to the service
+      tap(() => this.passengerDetails.push(bookingData)), // Save booking data to the service
       catchError((error: any) => {
         console.error('Error adding booking:', error);
         return throwError(error);
@@ -83,7 +85,7 @@ export class BookingService {
   }
 
   getPassengerDetails(): any[] {
-    return this.passengerDetailsArray;
+    return this.passengerDetails;
   }
 
   getMaxSeats(): number {
@@ -105,5 +107,53 @@ export class BookingService {
     this.bookingDetails = {};
     this.maxSeats = 1;
     this.selectedSeats = [];
+  }
+
+  // Method to download the passenger details as a PDF
+  downloadPassengerDetailsPdf(): void {
+    const doc = new jsPDF('p', 'mm', 'a4');
+    let yOffset = 10;
+
+    doc.setFontSize(18);
+    doc.text('Booking Details', 105, yOffset, { align: 'center' });
+    yOffset += 10;
+
+    doc.setFontSize(12);
+
+    this.passengerDetails.forEach((passenger, index) => {
+      doc.text(`Passenger ${index + 1}`, 10, yOffset);
+      yOffset += 8;
+
+      doc.text(`Schedule ID: ${passenger.schedule_id}`, 10, yOffset); // Schedule ID
+      yOffset += 8;
+      doc.text(`First Name: ${passenger.first_name}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Last Name: ${passenger.last_name}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Date of Birth: ${passenger.dob}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Gender: ${passenger.gender}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Passport Number: ${passenger.passport_number}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Address: ${passenger.address}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`State: ${passenger.state}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Country: ${passenger.country}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Seat Number: ${passenger.seat_no}`, 10, yOffset);
+      yOffset += 8;
+      doc.text(`Ticket Type: ${passenger.ticket_type}`, 10, yOffset);
+      yOffset += 12; // Additional space after each passenger
+
+      // Check if we need to add a new page
+      if (yOffset > 270) {
+        doc.addPage();
+        yOffset = 10;
+      }
+    });
+
+    doc.save('Passenger_Details.pdf');
   }
 }
