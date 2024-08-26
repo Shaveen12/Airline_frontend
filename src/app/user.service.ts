@@ -30,6 +30,10 @@ export class UserService {
     );
   }
 
+  getUserDetails(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+  }
+
   getUserBookings(userId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/user-bookings/${userId}`);
   }

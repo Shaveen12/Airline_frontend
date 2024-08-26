@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-passenger-details',
@@ -25,6 +26,7 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private bookingService: BookingService,
+    private userService: UserService,
     private router: Router
   ) {
     this.passengerForm = this.fb.group({
@@ -106,6 +108,29 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
     const minutes: number = Math.floor(seconds / 60);
     const remainingSeconds: number = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  }
+
+  fetchUserDetails(index: number): void {
+    const userId = this.passengers.at(index).get('user_id')?.value;
+
+    if (userId) {
+      this.userService.getUserDetails(userId).subscribe(userDetails => {
+        if (userDetails) {
+          this.passengers.at(index).patchValue({
+            first_name: userDetails.first_name,
+            last_name: userDetails.last_name,
+            dob: userDetails.dob,
+            gender: userDetails.gender,
+            passport_number: userDetails.passport_number,
+            address: userDetails.address,
+            state: userDetails.state,
+            country: userDetails.country,
+          });
+        }
+      });
+    } else {
+      alert('Please enter a valid User ID.');
+    }
   }
 
   async onSubmit() {
