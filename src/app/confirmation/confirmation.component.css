@@ -1,46 +1,74 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f4f8; /* Light background for a modern look */
-}
-
 .confirmation-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
     text-align: center;
-}
-
-.confirmation-container strong {
-    font-size: 3rem; /* Larger text size for emphasis */
-    font-weight: bold;
-    color: #2c3e50; /* Darker text color */
-    margin-bottom: 30px; /* Space between text and button */
-}
-
-.navigate-button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #007bff; /* Blue background for the button */
+  }
+  
+  .confirmation-container strong {
+    display: block;
+    font-size: 26px;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  .flight-details, .passenger-details {
+    text-align: left;
+    margin-bottom: 25px;
+  }
+  
+  .flight-details h3, .passenger-details h4 {
+    color: #333333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+  }
+  
+  .flight-details p, .passenger-details p {
+    font-size: 17px;
+    color: #666666;
+    margin: 8px 0;
+  }
+  
+  .navigate-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effects */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visual appeal */
-    text-align: center; /* Ensure text is centered within the button */
-}
-
-.navigate-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-3px); /* Slight lift effect */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
-}
-
-.navigate-button:active {
-    transform: translateY(0); /* Reset lift effect when clicked */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Return to original shadow on click */
-}
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+  }
+  
+  .navigate-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+  }
+  
+  .passenger-details {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #007bff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+  }
+  
+  .passenger-details:hover {
+    transform: translateY(-5px);
+    background-color: #e9f7ff;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
+  }
+  

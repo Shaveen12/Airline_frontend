@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,7 @@ export class BookingService {
   private bookingDetails: any = {};
   private maxSeats: number = 1;
   private selectedSeats: string[] = [];
+  private passengerDetailsArray: any[] = [];
 
   baseUrl = 'http://localhost:3000/booking';
 
@@ -66,18 +67,23 @@ export class BookingService {
     dob: string;
     gender: string;
     passport_number: string;
-    address: string; 
-    state: string;   
-    country: string; 
+    address: string;
+    state: string;
+    country: string;
   }): Observable<any> {
     const url = `${this.baseUrl}/addBooking`;
 
     return this.http.post(url, bookingData).pipe(
+      tap(() => this.passengerDetailsArray.push(bookingData)), // Save booking data to the service
       catchError((error: any) => {
         console.error('Error adding booking:', error);
         return throwError(error);
       })
     );
+  }
+
+  getPassengerDetails(): any[] {
+    return this.passengerDetailsArray;
   }
 
   getMaxSeats(): number {

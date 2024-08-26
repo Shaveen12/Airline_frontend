@@ -21,6 +21,8 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) {}
 
+
+
   getFlights(start: string, end: string, from: string, to: string): Observable<any> {
     return this.http.get(`${this.apiUrl}daterange/`, {
       params: {
@@ -81,19 +83,19 @@ export class ScheduleService {
   }
 
   // Methods to retrieve stored flight details
-  getFlightNumber(): string {
+  getFlightNo(): string {
     return this.flightNumber;
   }
 
-  getSource(): string {
+  getFlightSource(): string {
     return this.source;
   }
 
-  getDestination(): string {
+  getFlightDestination(): string {
     return this.destination;
   }
 
-  getDateTime(): string {
+  getFlightTime(): string {
     return this.dateTime;
   }
 }
