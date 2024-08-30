@@ -41,12 +41,12 @@ export class FlightDetailsComponent implements OnInit {
           this.flightDetails = data;
           console.log('Flight Details:', this.flightDetails);
 
-          const seats = {
-            Economy: data.economy_seats,
-            Business: data.business_seats,
-            Platinum: data.platinum_seats
+          // const seats = {
+          //   Economy: data.economy_seats,
+          //   Business: data.business_seats,
+          //   Platinum: data.platinum_seats
 
-          };
+          // };
 
           //this.scheduleService.setSeats(seats);
         },

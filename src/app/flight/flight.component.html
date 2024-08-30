@@ -27,13 +27,10 @@
 
         <div class="form-group">
           <label for="numberOfTickets">Number of Tickets</label>
-          <input
-            type="number"
-            id="numberOfTickets"
-            formControlName="numberOfTickets"
-            min="1"
-            placeholder="Enter number of tickets"
-          />
+          <select id="numberOfTickets" formControlName="numberOfTickets">
+            <option value="" disabled>Select number of tickets</option>
+            <option *ngFor="let n of [1, 2, 3, 4, 5]" [value]="n">{{ n }}</option>
+          </select>
         </div>
 
         <button type="submit" [disabled]="!ticketForm.valid">Book Now</button>

@@ -11,21 +11,21 @@ export class UserService {
   private userSubject = new BehaviorSubject<any>(null); // Holds the logged-in user's data
 
   constructor(private http: HttpClient) {
-    // Load the user from localStorage if available
-    const userJson = localStorage.getItem('user');
+    // Load the user from sessionStorage if available
+    const userJson = sessionStorage.getItem('user');
     if (userJson) {
       this.userSubject.next(JSON.parse(userJson));
     }
   }
-
+   
   login(email: string, password: string): Observable<any> {
     const body = { email, password };
 
     return this.http.post(`${this.apiUrl}/login`, body).pipe(
       tap((user) => {
-        // Save user data to the BehaviorSubject and localStorage
+        // Save user data to the BehaviorSubject and sessionStorage
         this.userSubject.next(user);
-        localStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem('user', JSON.stringify(user));
       })
     );
   }
@@ -52,6 +52,6 @@ export class UserService {
 
   logout() {
     this.userSubject.next(null);
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
   }
 }
