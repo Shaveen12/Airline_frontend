@@ -104,4 +104,15 @@ export class HomeComponent {
     // Navigate to the FlightDetailsComponent
     this.router.navigate(['/flight-details', flight.schedule_id]);
   }
+
+  onKeyDown(event: KeyboardEvent, type: string): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();  // Prevent the form from submitting
+      if (type === 'source' && this.filteredSourceAirports.length > 0) {
+        this.selectAirport(type, this.filteredSourceAirports[0]);
+      } else if (type === 'destination' && this.filteredDestinationAirports.length > 0) {
+        this.selectAirport(type, this.filteredDestinationAirports[0]);
+      }
+    }
+  }
 }

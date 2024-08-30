@@ -10,6 +10,7 @@
           formControlName="source"
           placeholder="Enter source"
           (input)="filterAirports(travelForm.get('source')?.value, 'source')"
+          (keydown)="onKeyDown($event, 'source')"
           autocomplete="off"
         />
         <ul *ngIf="filteredSourceAirports.length > 0" class="autocomplete-list">
@@ -29,9 +30,8 @@
           type="text"
           formControlName="destination"
           placeholder="Enter destination"
-          (input)="
-            filterAirports(travelForm.get('destination')?.value, 'destination')
-          "
+          (input)="filterAirports(travelForm.get('destination')?.value, 'destination')"
+          (keydown)="onKeyDown($event, 'destination')"
           autocomplete="off"
         />
         <ul
@@ -42,7 +42,7 @@
             *ngFor="let airport of filteredDestinationAirports"
             (click)="selectAirport('destination', airport)"
           >
-            {{ airport.code }} - {{ airport.location }}
+            {{ airport.location }}
           </li>
         </ul>
       </div>
