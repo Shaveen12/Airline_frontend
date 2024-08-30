@@ -1,5 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BookingService } from '../booking.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -12,7 +18,7 @@ import { UserService } from '../user.service';
   templateUrl: './passenger-details.component.html',
   styleUrls: ['./passenger-details.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class PassengerDetailsComponent implements OnInit, OnDestroy {
   passengerForm: FormGroup;
@@ -30,13 +36,13 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.passengerForm = this.fb.group({
-      passengers: this.fb.array([]) // Array of passengers
+      passengers: this.fb.array([]), // Array of passengers
     });
   }
 
   ngOnInit() {
     const bookingDetails = this.bookingService.getBookingDetails();
-    console.log("Booking deets: ", bookingDetails);
+    console.log('Booking deets: ', bookingDetails);
     this.scheduleId = bookingDetails.scheduleId;
     this.maxSeats = this.bookingService.getMaxSeats();
     this.selectedSeats = this.bookingService.getSelectedSeats();
@@ -68,15 +74,15 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
       dob: ['', Validators.required],
       gender: ['', Validators.required],
       passport_number: ['', Validators.required],
-      address: ['', Validators.required], 
+      address: ['', Validators.required],
       state: ['', Validators.required],
-      country: ['', Validators.required], 
+      country: ['', Validators.required],
     });
   }
 
   startTimer(): void {
     this.timerSubscription = interval(1000)
-      .pipe(take(this.timeLeft + 1))  // Adjust to take the full range of timeLeft
+      .pipe(take(this.timeLeft + 1)) // Adjust to take the full range of timeLeft
       .subscribe({
         next: () => {
           if (this.timeLeft > 0) {
@@ -90,11 +96,11 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
           }
         },
         complete: () => {
-          console.log("Timer completed.");
+          console.log('Timer completed.');
         },
         error: (err) => {
-          console.error("Timer encountered an error:", err);
-        }
+          console.error('Timer encountered an error:', err);
+        },
       });
   }
 
@@ -113,21 +119,32 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
   fetchUserDetails(index: number): void {
     const userId = this.passengers.at(index).get('user_id')?.value;
 
-    if (userId) {
-      this.userService.getUserDetails(userId).subscribe(userDetails => {
-        if (userDetails) {
-          this.passengers.at(index).patchValue({
-            first_name: userDetails.first_name,
-            last_name: userDetails.last_name,
-            dob: userDetails.dob,
-            gender: userDetails.gender,
-            passport_number: userDetails.passport_number,
-            address: userDetails.address,
-            state: userDetails.state,
-            country: userDetails.country,
-          });
+    console.log(`User ID at index ${index}:`, userId); // Log the user ID to verify
+
+    if (userId && userId.trim() !== '') {
+      // Check if userId is not empty or whitespace
+      this.userService.getUserDetails(userId).subscribe(
+        (userDetails) => {
+          if (userDetails) {
+            this.passengers.at(index).patchValue({
+              first_name: userDetails.first_name,
+              last_name: userDetails.last_name,
+              dob: userDetails.dob,
+              gender: userDetails.gender,
+              passport_number: userDetails.passport_number,
+              address: userDetails.address,
+              state: userDetails.state,
+              country: userDetails.country,
+            });
+          } else {
+            alert('No user details found for the provided User ID.');
+          }
+        },
+        (error) => {
+          console.error('Error fetching user details:', error);
+          alert('Enter a valid User ID.');
         }
-      });
+      );
     } else {
       alert('Please enter a valid User ID.');
     }
@@ -136,21 +153,23 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
   async onSubmit() {
     if (this.passengerForm.valid) {
       const formValues = this.passengerForm.value;
-      const bookingDataArray = formValues.passengers.map((passenger: any, index: number) => ({
-        schedule_id: this.scheduleId!,
-        user_id: passenger.user_id || null,
-        date: new Date().toISOString().split('T')[0],
-        ticket_type: this.ticketType,
-        seat_no: this.selectedSeats[index],
-        first_name: passenger.first_name,
-        last_name: passenger.last_name,
-        dob: passenger.dob,
-        gender: passenger.gender,
-        passport_number: passenger.passport_number,
-        address: passenger.address, 
-        state: passenger.state, 
-        country: passenger.country, 
-      }));
+      const bookingDataArray = formValues.passengers.map(
+        (passenger: any, index: number) => ({
+          schedule_id: this.scheduleId!,
+          user_id: passenger.user_id || null,
+          date: new Date().toISOString().split('T')[0],
+          ticket_type: this.ticketType,
+          seat_no: this.selectedSeats[index],
+          first_name: passenger.first_name,
+          last_name: passenger.last_name,
+          dob: passenger.dob,
+          gender: passenger.gender,
+          passport_number: passenger.passport_number,
+          address: passenger.address,
+          state: passenger.state,
+          country: passenger.country,
+        })
+      );
 
       console.log('Booking data array:', bookingDataArray);
 
@@ -161,7 +180,9 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
           console.log(`Booking added for seat ${bookingData.seat_no}`);
         } catch (error) {
           console.error('Error adding booking:', error);
-          alert(`Booking failed for seat ${bookingData.seat_no}. Please try again.`);
+          alert(
+            `Booking failed for seat ${bookingData.seat_no}. Please try again.`
+          );
           return; // Exit if any booking fails
         }
       }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ScheduleService } from './schedule.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class BookingService {
 
   baseUrl = 'http://localhost:3000/booking';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private scheduleService: ScheduleService) {}
 
   // Method to set the booking details
   setBookingDetails(scheduleId: string, details: any) {
@@ -113,18 +114,36 @@ export class BookingService {
   downloadPassengerDetailsPdf(): void {
     const doc = new jsPDF('p', 'mm', 'a4');
     let yOffset = 10;
-
+  
     doc.setFontSize(18);
     doc.text('Booking Details', 105, yOffset, { align: 'center' });
     yOffset += 10;
-
+  
     doc.setFontSize(12);
-
+  
+    // Flight details
+    doc.text(`Flight no: ${this.scheduleService.getFlightNo()}`, 10, yOffset);
+    yOffset += 8;
+  
+    doc.text(`Source: ${this.scheduleService.getFlightSource()}`, 10, yOffset);
+    yOffset += 8;
+  
+    doc.text(`Destination: ${this.scheduleService.getFlightDestination()}`, 10, yOffset);
+    yOffset += 8;
+  
+    doc.text(`Departure Time: ${this.scheduleService.getFlightTime()}`, 10, yOffset);
+    yOffset += 8;
+  
+    // Add a horizontal line to separate sections
+    doc.setDrawColor(0); // Set color to black (0)
+    doc.line(10, yOffset, 200, yOffset); // Horizontal line from (x1, y1) to (x2, y2)
+    yOffset += 10; // Add some space after the line
+  
     this.passengerDetails.forEach((passenger, index) => {
       doc.text(`Passenger ${index + 1}`, 10, yOffset);
       yOffset += 8;
-
-      doc.text(`Schedule ID: ${passenger.schedule_id}`, 10, yOffset); // Schedule ID
+  
+      doc.text(`Schedule ID: ${passenger.schedule_id}`, 10, yOffset);
       yOffset += 8;
       doc.text(`First Name: ${passenger.first_name}`, 10, yOffset);
       yOffset += 8;
@@ -145,15 +164,17 @@ export class BookingService {
       doc.text(`Seat Number: ${passenger.seat_no}`, 10, yOffset);
       yOffset += 8;
       doc.text(`Ticket Type: ${passenger.ticket_type}`, 10, yOffset);
-      yOffset += 12; // Additional space after each passenger
-
+      yOffset += 15; // Increased space after each passenger
+  
       // Check if we need to add a new page
       if (yOffset > 270) {
         doc.addPage();
         yOffset = 10;
       }
     });
-
+  
     doc.save('Passenger_Details.pdf');
   }
+  
+  
 }
