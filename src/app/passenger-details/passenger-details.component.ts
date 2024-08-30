@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { Subscription, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { UserService } from '../user.service';
+import { EmailService } from '../email.service';
+import { ScheduleService } from '../schedule.service';
 
 @Component({
   selector: 'app-passenger-details',
@@ -33,9 +35,12 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private bookingService: BookingService,
     private userService: UserService,
+    private emailService: EmailService,
+    private scheduleService: ScheduleService,
     private router: Router
   ) {
     this.passengerForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
       passengers: this.fb.array([]), // Array of passengers
     });
   }
@@ -119,7 +124,7 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
   fetchUserDetails(index: number): void {
     const userId = this.passengers.at(index).get('user_id')?.value;
 
-    console.log(`User ID at index ${index}:`, userId); // Log the user ID to verify
+    //console.log(`User ID at index ${index}:`, userId); 
 
     if (userId && userId.trim() !== '') {
       // Check if userId is not empty or whitespace
@@ -187,10 +192,62 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
         }
       }
 
-      // Navigate to confirmation if all bookings succeed
+
+      this.sendBookingSummaryEmail(formValues.email, bookingDataArray);
       this.router.navigate(['/confirmation']);
+
     } else {
       alert('Please fill out all required fields.');
     }
   }
+
+
+  sendBookingSummaryEmail(toEmail: string, bookingDataArray: any[]): void {
+    const subject = 'Your Booking Summary';
+    let message = `Thank you for your booking. Here are the details:\n\n`;
+
+    const flightNo = this.scheduleService.getFlightNo();
+    const source = this.scheduleService.getFlightSource();
+    const destination = this.scheduleService.getFlightDestination();
+    const flightTime = this.scheduleService.getFlightTime();
+
+
+    message += `Flight Details:\n`;
+    message += `Flight Number: ${flightNo}\n`;
+    message += `Source: ${source}\n`;
+    message += `Destination: ${destination}\n`;
+    message += `Flight Time: ${flightTime}\n\n`;
+
+    message += '------------------------------------------\n\n';
+
+    bookingDataArray.forEach((booking, index) => {
+      message += `Passenger ${index + 1}:\n`;
+      message += `Schedule ID: ${booking.schedule_id}\n`;
+      message += `User ID: ${booking.user_id ? booking.user_id : 'N/A'}\n`;
+      message += `First Name: ${booking.first_name}\n`;
+      message += `Last Name: ${booking.last_name}\n`;
+      message += `Date of Birth: ${booking.dob}\n`;
+      message += `Gender: ${booking.gender}\n`;
+      message += `Passport Number: ${booking.passport_number}\n`;
+      message += `Address: ${booking.address}\n`;
+      message += `State: ${booking.state}\n`;
+      message += `Country: ${booking.country}\n`;
+      message += `Seat Number: ${booking.seat_no}\n`;
+      message += `Ticket Type: ${booking.ticket_type}\n`;
+      message += `Date: ${booking.date}\n\n`;
+
+      // Adding a separator between passengers for clarity
+      message += '------------------------------------------\n\n';
+
+    });
+
+    this.emailService.sendEmail(toEmail, subject, message)
+      .then((response) => {
+        console.log('Email sent successfully:', response);
+      })
+      .catch((error) => {
+        console.error('Failed to send email:', error);
+      });
+  }
+
 }
