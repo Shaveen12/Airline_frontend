@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '../user.service';
+import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,8 +22,8 @@ export class LoginComponent {
     console.log('Logging in with', this.email,);
     console.log("Password", this.password);
     this.UserService.login(this.email, this.password).subscribe({
-      next: (user) => {
-        console.log('Login successful', user.user_id, user.email);
+      next: (response) => {
+        console.log('Login successful', response.user.user_id, response.user.email);
         this.router.navigate(['/dashboard']); // Navigate to the dashboard after login
       },
       error: (error) => {

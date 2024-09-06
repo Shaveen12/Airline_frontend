@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
+import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { airports } from '../data/airports.data';  // Import the airports data
+import { airports } from '../../data/airports.data';  // Import the airports data
 
 @Component({
   selector: 'app-dashboard',

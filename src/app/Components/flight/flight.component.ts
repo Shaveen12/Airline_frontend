@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ScheduleService } from '../schedule.service';
-import { BookingService } from '../booking.service';
+import { ScheduleService } from '../../Services/schedule.service';
+import { BookingService } from '../../Services/booking.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

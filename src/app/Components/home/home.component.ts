@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { dateRangeValidator } from '../validators/date-range.validator';
-import { ScheduleService } from '../schedule.service';
+import { dateRangeValidator } from '../../validators/date-range.validator';
+import { ScheduleService } from '../../Services/schedule.service';
 import { Router } from '@angular/router';
-import { airports } from '../data/airports.data';
+import { airports } from '../../data/airports.data';
 
 @Component({
   selector: 'app-home',

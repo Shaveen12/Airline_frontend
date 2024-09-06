@@ -6,14 +6,14 @@ import {
   FormArray,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BookingService } from '../booking.service';
+import { BookingService } from '../../Services/booking.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { UserService } from '../user.service';
-import { EmailService } from '../email.service';
-import { ScheduleService } from '../schedule.service';
+import { UserService } from '../../Services/user.service';
+import { EmailService } from '../../Services/email.service';
+import { ScheduleService } from '../../Services/schedule.service';
 
 @Component({
   selector: 'app-passenger-details',

@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
-import { FlightDetailsComponent } from './flight/flight.component';
-import { BookingComponent } from './booking/booking.component';
-import { PassengerDetailsComponent } from './passenger-details/passenger-details.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/register/register.component';
+import { HomeComponent } from './Components/home/home.component';
+import { FlightDetailsComponent } from './Components/flight/flight.component';
+import { BookingComponent } from './Components/booking/booking.component';
+import { PassengerDetailsComponent } from './Components/passenger-details/passenger-details.component';
+import { ConfirmationComponent } from './Components/confirmation/confirmation.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Default route is the dashboard

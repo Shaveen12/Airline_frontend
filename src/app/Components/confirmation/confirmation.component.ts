@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingService } from '../booking.service';
-import { ScheduleService } from '../schedule.service';
+import { BookingService } from '../../Services/booking.service';
+import { ScheduleService } from '../../Services/schedule.service';
 import { CommonModule } from '@angular/common';  // Import CommonModule for *ngFor and *ngIf
 
 @Component({

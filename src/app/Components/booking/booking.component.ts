@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingService } from '../booking.service';
-import { ScheduleService } from '../schedule.service';
+import { BookingService } from '../../Services/booking.service';
+import { ScheduleService } from '../../Services/schedule.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
