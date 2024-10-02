@@ -4,6 +4,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ScheduleService } from './schedule.service';
+import { API_BASE_URL } from '../config/api.config'
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class BookingService {
   private selectedSeats: string[] = [];
   private passengerDetails: any[] = [];
 
-  baseUrl = 'http://localhost:3000/booking';
+  apiUrl = `${API_BASE_URL}/booking`;
 
   constructor(private http: HttpClient, private scheduleService: ScheduleService) {}
 
@@ -37,7 +38,7 @@ export class BookingService {
 
   // Method to fetch available seats using GET request
   getAvailableSeats(scheduleId: string, ticketType: string): Observable<string[]> {
-    const url = `${this.baseUrl}/getSeats?schedule_id=${scheduleId}&ticket_type=${ticketType}`;
+    const url = `${this.apiUrl}/getSeats?schedule_id=${scheduleId}&ticket_type=${ticketType}`;
     return this.http.get<string[]>(url).pipe(
       catchError((error: any) => {
         console.error('Error fetching available seats:', error);
@@ -48,7 +49,7 @@ export class BookingService {
 
   //Reservation API
   addReservation(schedule_id: string, ticket_type: string, seat_no: string): Observable<any> {
-    const url = `${this.baseUrl}/addReservation`;
+    const url = `${this.apiUrl}/addReservation`;
     const body = { schedule_id, ticket_type, seat_no };
     return this.http.post(url, body).pipe(
       catchError((error: any) => {
@@ -74,7 +75,7 @@ export class BookingService {
     state: string;
     country: string;
   }): Observable<any> {
-    const url = `${this.baseUrl}/addBooking`;
+    const url = `${this.apiUrl}/addBooking`;
 
     return this.http.post(url, bookingData).pipe(
       tap(() => this.passengerDetails.push(bookingData)), // Save booking data to the service

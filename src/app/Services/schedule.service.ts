@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../config/api.config'
 
 @Injectable({
-  providedIn: 'root' // This makes the service available application-wide
+  providedIn: 'root' 
 })
 export class ScheduleService {
   private economySeats: number = 0;
@@ -17,7 +18,7 @@ export class ScheduleService {
   private destination: string = '';
   private dateTime: string = '';
 
-  private apiUrl = 'http://localhost:3000/schedule/flight/'; // Base URL for your API
+  private apiUrl = `${API_BASE_URL}/schedule/flight/`; 
 
   constructor(private http: HttpClient) {}
 

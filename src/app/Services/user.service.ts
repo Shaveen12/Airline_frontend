@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../config/api.config'
 
 interface User {
   user_id: string;
@@ -25,7 +26,7 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/user'; 
+  private apiUrl = `${API_BASE_URL}/user`; 
   private userSubject = new BehaviorSubject<any>(null); // Holds the logged-in user's data
 
   constructor(private http: HttpClient) {

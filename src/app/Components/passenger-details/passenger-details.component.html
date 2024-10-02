@@ -13,7 +13,6 @@
         <input id="email" formControlName="email" type="email" placeholder="Enter your email address" required />
       </div>
 
-
       <!-- Passenger Forms -->
       <div formArrayName="passengers" *ngFor="let passenger of passengers.controls; let i = index">
         <h3>Passenger {{ i + 1 }}</h3>
@@ -76,4 +75,5 @@
       <button type="submit" class="submit-button">Proceed To Payment</button>
     </form>
   </div>
+  
   
