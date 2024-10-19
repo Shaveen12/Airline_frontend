@@ -61,10 +61,10 @@ export class UserService {
     return this.http.get<any>(`${this.apiUrl}/${userId}`, { headers });
   }
 
-  getUserBookings(userId: string): Observable<any[]> {
+  getUserBookings(email: string): Observable<any[]> {
     const token = this.getToken(); // Fetch token from sessionStorage
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any[]>(`${this.apiUrl}/user-bookings/${userId}`, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/user-bookings/${email}`, { headers });
   }
 
   register(user: any): Observable<any> {

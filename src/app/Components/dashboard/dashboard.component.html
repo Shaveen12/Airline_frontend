@@ -9,7 +9,7 @@
     <p><strong>Passport Number:</strong> {{ user.passport_number }}</p>
     <p><strong>Flight Count:</strong> {{ user.flight_count }}</p>
     <p><strong>Tier:</strong> {{ user.tier }}</p>
-    <p><strong>User id:</strong> {{ user.user_id }}</p>
+    <p><strong>Passenger id:</strong> {{ user.passenger_id }}</p>
     <hr>
     <button (click)="logout()" class="btn-secondary logout-button">Logout</button>
     <br>
@@ -17,12 +17,11 @@
     <h3>Upcoming Flights</h3>
     <ul *ngIf="upcomingFlights.length > 0; else noUpcomingFlights">
       <li *ngFor="let booking of upcomingFlights">
-        <p><strong>Flight Number:</strong> {{ booking.flight_no }}</p>
+        <p><strong>Flight Number:</strong> {{ booking.flight_number }}</p>
         <p><strong>From:</strong> {{ booking.sourceLocation }}</p>
         <p><strong>To:</strong> {{ booking.destinationLocation }}</p>
-        <p><strong>Date & Time:</strong> {{ booking.date_time }}</p>
-        <p><strong>Ticket Type:</strong> {{ booking.ticket_type }}</p>
-        <p><strong>Price:</strong> ${{ booking.price }}</p>
+        <p><strong>Date & Time:</strong> {{ booking.departure_time }}</p>
+        <p><strong>Seat Number:</strong> {{ booking.seat_no }}</p>
         <hr>
       </li>
     </ul>
@@ -33,12 +32,12 @@
     <h3>Past Flights</h3>
     <ul *ngIf="pastFlights.length > 0; else noPastFlights">
       <li *ngFor="let booking of pastFlights">
-        <p><strong>Flight Number:</strong> {{ booking.flight_no }}</p>
+        <p><strong>Flight Number:</strong> {{ booking.flight_number }}</p>
         <p><strong>From:</strong> {{ booking.sourceLocation }}</p>
         <p><strong>To:</strong> {{ booking.destinationLocation }}</p>
-        <p><strong>Date & Time:</strong> {{ booking.date_time }}</p>
-        <p><strong>Ticket Type:</strong> {{ booking.ticket_type }}</p>
-        <p><strong>Price:</strong> ${{ booking.price }}</p>
+        <p><strong>Date & Time:</strong> {{ booking.departure_time }}</p>
+        <p><strong>Seat Number:</strong> {{ booking.seat_no }}</p>
+        
         <hr>
       </li>
     </ul>

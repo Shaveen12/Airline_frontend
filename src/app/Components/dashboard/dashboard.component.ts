@@ -24,11 +24,12 @@ export class DashboardComponent implements OnInit {
     if (this.user) {
       console.log("User: ", this.user);
 
-      this.userService.getUserBookings(this.user.user_id).subscribe(bookings => {
+      this.userService.getUserBookings(this.user.email).subscribe(bookings => {
         const now = new Date();
+        console.log(bookings)
         bookings.forEach(booking => {
-          booking.sourceLocation = this.getAirportLocation(booking.source_airport_code);
-          booking.destinationLocation = this.getAirportLocation(booking.destination_airport_code);
+          booking.sourceLocation = this.getAirportLocation(booking.from_destination);
+          booking.destinationLocation = this.getAirportLocation(booking.to_destination);
           if (new Date(booking.date_time) > now) {
             this.upcomingFlights.push(booking);
           } else {
@@ -41,6 +42,8 @@ export class DashboardComponent implements OnInit {
       // Redirect to the login page if the user is not logged in
       //this.router.navigate(['/login']);
     }
+
+    
   }
 
   getAirportLocation(code: string): string {

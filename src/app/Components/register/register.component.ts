@@ -18,34 +18,28 @@ export class RegisterComponent {
   lastName: string = '';
   dob: string = ''; // Date of Birth
   passportNumber: string = '';
-  tier: string = 'Guest'; // Default to "Guest"
   gender: string = '';
-  address: string = ''; 
-  state: string = '';   
-  country: string = ''; 
+  mobileNum: string = ''; // New field for mobile number
   errorMessage: string = '';
 
   constructor(private UserService: UserService, private router: Router) {}
 
   onRegister() {
-    const user = {
-      email: this.email,
-      password: this.password,
-      first_name: this.firstName,
-      last_name: this.lastName,
-      dob: this.dob,
-      passport_number: this.passportNumber,
-      tier: this.tier,
-      gender: this.gender,
-      address: this.address,   
-      state: this.state,       
-      country: this.country    
+    const userData = {
+      first_name: this.firstName,                  // First Name
+      last_name: this.lastName,                    // Last Name
+      gender: this.gender,                         // Gender
+      dob: this.dob,                               // Date of Birth
+      passport_number: this.passportNumber,        // Passport Number
+      mobile_num: this.mobileNum,                  // Mobile Number
+      email: this.email,                           // Email
+      password: this.password,                     // Password
     };
 
-    this.UserService.register(user).subscribe({
+    this.UserService.register(userData).subscribe({
       next: (response) => {
         console.log('Registration successful', response);
-        this.router.navigate(['/login']); // Navigate to the login page after successful registration
+        this.router.navigate(['/login']); // Navigate to login after registration
       },
       error: (error) => {
         console.error('Registration failed', error);
