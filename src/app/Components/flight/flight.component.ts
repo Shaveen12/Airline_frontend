@@ -61,6 +61,7 @@ export class FlightDetailsComponent implements OnInit {
     if (this.scheduleId && this.ticketForm.valid) {
       // Store the booking details in the BookingService
       this.bookingService.setBookingDetails(this.scheduleId, this.ticketForm.value);
+      // console.log(this.ticketForm)
       
       // Navigate to the BookingComponent
       this.router.navigate(['/booking']);

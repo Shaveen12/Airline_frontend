@@ -79,6 +79,7 @@ export class HomeComponent {
           if (this.flights.length === 0) {
             this.noFlightsFound = true; // If the response is empty, show no flights found
           }
+          console.log(data)
         },
         error: (error) => {
           console.error('Error fetching flights:', error);

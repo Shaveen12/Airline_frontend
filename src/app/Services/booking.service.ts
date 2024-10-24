@@ -12,9 +12,9 @@ import { API_BASE_URL } from '../config/api.config'
 export class BookingService {
   private scheduleId: string | null = null;
   private bookingDetails: any = {};
-  private maxSeats: number = 1;
   private selectedSeats: string[] = [];
   private passengerDetails: any[] = [];
+  private maxSeats: number =1;
 
   apiUrl = `${API_BASE_URL}/booking`;
 
@@ -25,7 +25,6 @@ export class BookingService {
     console.log(details);
     this.scheduleId = scheduleId;
     this.bookingDetails = details;
-    this.maxSeats = details.numberOfTickets || 1;
   }
 
   // Method to retrieve booking details
@@ -36,10 +35,18 @@ export class BookingService {
     };
   }
 
+  setMaxSeats(num: number) {
+    this.maxSeats = num;
+  }
+
+  getMaxSeats(): number {
+    return this.maxSeats;
+  }
+
   // Method to fetch available seats using GET request
-  getAvailableSeats(scheduleId: string, ticketType: string): Observable<string[]> {
+  getAvailableSeats(scheduleId: string, ticketType: string): Observable<any> {
     const url = `${this.apiUrl}/getSeats?schedule_id=${scheduleId}&ticket_type=${ticketType}`;
-    return this.http.get<string[]>(url).pipe(
+    return  this.http.get<string[]>(url).pipe(
       catchError((error: any) => {
         console.error('Error fetching available seats:', error);
         return throwError(error); // Re-throw the error after logging it
@@ -90,9 +97,6 @@ export class BookingService {
     return this.passengerDetails;
   }
 
-  getMaxSeats(): number {
-    return this.maxSeats;
-  }
 
   setSelectedSeats(seats: string[]) {
     this.selectedSeats = seats;
@@ -107,7 +111,6 @@ export class BookingService {
   clearBookingDetails() {
     this.scheduleId = null;
     this.bookingDetails = {};
-    this.maxSeats = 1;
     this.selectedSeats = [];
   }
 

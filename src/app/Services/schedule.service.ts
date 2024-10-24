@@ -59,16 +59,8 @@ export class ScheduleService {
       })
     );
   }
+  
 
-  getSeatDetails(scheduleId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}${scheduleId}/seats`);
-  }
-
-  setSeats(seats: any) {
-    this.economySeats = seats.Economy;
-    this.businessSeats = seats.Business;
-    this.platinumSeats = seats.Platinum;
-  }
 
   getSeats(type: string): number {
     switch (type) {

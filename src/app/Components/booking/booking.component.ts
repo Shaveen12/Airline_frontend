@@ -20,6 +20,7 @@ export class BookingComponent implements OnInit {
   ticketType: string = '';
   gridColumns: string = '';
   gridRows: string = '';
+  totalSeats: number = 0;
 
   constructor(
     private bookingService: BookingService,
@@ -29,32 +30,30 @@ export class BookingComponent implements OnInit {
 
   ngOnInit() {
     const bookingDetails = this.bookingService.getBookingDetails();
+    console.log("Booking details: ", bookingDetails);
     this.scheduleId = bookingDetails.scheduleId;
     this.ticketType = bookingDetails.category;
-    this.maxSeats = this.bookingService.getMaxSeats();
+    this.maxSeats = bookingDetails.numberOfTickets;
+    this.bookingService.setMaxSeats(this.maxSeats);
 
     if (this.scheduleId && this.ticketType) {
-      // Get total number of seats for the selected ticket type
-      const totalSeats = this.scheduleService.getSeats(this.ticketType);
-
-      // Generate all seat numbers (e.g., E1, E2, ..., E50)
-      this.allSeats = Array.from({ length: totalSeats }, (_, i) =>
-        `${this.ticketType.charAt(0)}${i + 1}`
-      );
-
-      // Set grid layout based on the ticket type
-      if (this.ticketType === 'Economy') {
-        this.gridColumns = 'repeat(4, 1fr)';
-        this.gridRows = `repeat(${Math.ceil(totalSeats / 4)}, 1fr)`;
-      } else {
-        this.gridColumns = 'repeat(2, 1fr)';
-        this.gridRows = `repeat(${Math.ceil(totalSeats / 2)}, 1fr)`;
-      }
-
-      // Fetch available seats
       this.bookingService.getAvailableSeats(this.scheduleId, this.ticketType).subscribe(
-        (seats) => {
-          this.availableSeats = seats;
+        (response) => {
+          this.availableSeats = response.seats;
+          console.log("available seats: ", this.availableSeats);
+          this.totalSeats = response.maxSeats;
+          console.log("Total Seats count: ", this.totalSeats);
+
+          this.allSeats = Array.from({ length: this.totalSeats }, (_, i) =>
+            `${this.ticketType.charAt(0)}${i + 1}`
+          );
+          if (this.ticketType === 'Economy') {
+            this.gridColumns = 'repeat(4, 1fr)';
+            this.gridRows = `repeat(${Math.ceil(this.totalSeats / 4)}, 1fr)`;
+          } else {
+            this.gridColumns = 'repeat(2, 1fr)';
+            this.gridRows = `repeat(${Math.ceil(this.totalSeats / 2)}, 1fr)`;
+          }
         },
         (error) => {
           console.error('Error fetching available seats:', error);
@@ -103,7 +102,7 @@ export class BookingComponent implements OnInit {
       // If all reservations are successful, navigate to the passenger details page
       this.router.navigate(['/passenger-details']);
     } else {
-      alert('Please select at least one seat.');
+      alert('Please select the more seat(s)');
     }
   }
 }
