@@ -15,6 +15,7 @@ export class BookingService {
   private selectedSeats: string[] = [];
   private passengerDetails: any[] = [];
   private maxSeats: number =1;
+  private price: number = 0;
 
   apiUrl = `${API_BASE_URL}/booking`;
 
@@ -69,18 +70,14 @@ export class BookingService {
   //Booking API
   addBooking(bookingData: {
     schedule_id: string;
-    user_id?: string | null;
-    date: string;
-    ticket_type: string;
+    email?: string | null;
     seat_no: string;
     first_name: string;
     last_name: string;
     dob: string;
     gender: string;
     passport_number: string;
-    address: string;
-    state: string;
-    country: string;
+    mobile_num: string;
   }): Observable<any> {
     const url = `${this.apiUrl}/addBooking`;
 
@@ -113,6 +110,17 @@ export class BookingService {
     this.bookingDetails = {};
     this.selectedSeats = [];
   }
+  
+  setPrice(price:number) {
+    this.price = price;
+    console.log("Price: ", this.price);
+  }
+
+  getPrice():number {
+    return this.price;
+  }
+  
+
 
   // Method to download the passenger details as a PDF
   downloadPassengerDetailsPdf(): void {

@@ -59,9 +59,30 @@ export class FlightDetailsComponent implements OnInit {
 
   onBookFlight() {
     if (this.scheduleId && this.ticketForm.valid) {
+      const category = this.ticketForm.value.category;
+      let price;
+
+      // Determine the price based on the selected category
+      switch (category) {
+        case 'Economy':
+          price = this.flightDetails.economy_price;
+          break;
+        case 'Business':
+          price = this.flightDetails.business_price;
+          break;
+        case 'Platinum':
+          price = this.flightDetails.platinum_price;
+          break;
+        default:
+          console.error('Invalid category selected');
+          return;
+      }
+
+      // Set the price using the ScheduleService
+      this.bookingService.setPrice(price);
+
       // Store the booking details in the BookingService
       this.bookingService.setBookingDetails(this.scheduleId, this.ticketForm.value);
-      // console.log(this.ticketForm)
       
       // Navigate to the BookingComponent
       this.router.navigate(['/booking']);

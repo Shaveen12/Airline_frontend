@@ -20,19 +20,16 @@
         <div [formGroupName]="i" class="passenger-form">
           <div class="form-group user-id-group">
             <!-- <label for="user_id_{{ i }}">User ID (optional)</label> -->
-            <input id="user_id_{{ i }}" formControlName="user_id" type="text" placeholder="Enter user ID (Optional)">
+            <input id="user_id_{{ i }}" formControlName="email_reg" type="text" placeholder="Enter Registered Email (Optional)">
             <button type="button" class="fetch-button" (click)="fetchUserDetails(i)">Auto-fill</button>
           </div>
   
           <div class="form-group">
-            <label for="first_name_{{ i }}">First Name</label>
-            <input id="first_name_{{ i }}" formControlName="first_name" type="text" placeholder="Enter first name" required>
+            <label for="first_name_{{ i }}">Full Name</label>
+            <input id="first_name_{{ i }}" formControlName="full_name" type="text" placeholder="Enter Full Name" required>
           </div>
   
-          <div class="form-group">
-            <label for="last_name_{{ i }}">Last Name</label>
-            <input id="last_name_{{ i }}" formControlName="last_name" type="text" placeholder="Enter last name" required>
-          </div>
+
   
           <div class="form-group">
             <label for="dob_{{ i }}">Date of Birth</label>
@@ -55,19 +52,11 @@
           </div>
   
           <div class="form-group">
-            <label for="address_{{ i }}">Address</label>
-            <input id="address_{{ i }}" formControlName="address" type="text" placeholder="Enter address" required>
+            <label for="address_{{ i }}">Phone Number</label>
+            <input id="address_{{ i }}" formControlName="mobile_number" type="text" placeholder="Enter address" required>
           </div>
   
-          <div class="form-group">
-            <label for="state_{{ i }}">State</label>
-            <input id="state_{{ i }}" formControlName="state" type="text" placeholder="Enter state" required>
-          </div>
-  
-          <div class="form-group">
-            <label for="country_{{ i }}">Country</label>
-            <input id="country_{{ i }}" formControlName="country" type="text" placeholder="Enter country" required>
-          </div>
+
         </div>
       </div>
   

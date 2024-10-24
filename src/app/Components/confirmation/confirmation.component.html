@@ -14,16 +14,14 @@
     <!-- Passenger Details -->
     <div class="passenger-details" *ngFor="let passenger of passengerDetailsArray; let i = index">
         <h4>Passenger {{ i + 1 }} Details</h4> <!-- Adding Passenger Number -->
-        <p><strong>First Name:</strong> {{ passenger.first_name }}</p>
-        <p><strong>Last Name:</strong> {{ passenger.last_name }}</p>
+        <p><strong>Full Name:</strong> {{ passenger.full_name }}</p>
         <p><strong>Date of Birth:</strong> {{ passenger.dob }}</p>
         <p><strong>Gender:</strong> {{ passenger.gender }}</p>
         <p><strong>Passport Number:</strong> {{ passenger.passport_number }}</p>
-        <p><strong>Address:</strong> {{ passenger.address }}</p>
-        <p><strong>State:</strong> {{ passenger.state }}</p>
-        <p><strong>Country:</strong> {{ passenger.country }}</p>
+        <p><strong>Mobile Number:</strong>{{passenger.mobile_num}}</p>
         <p><strong>Seat Number:</strong> {{ passenger.seat_no }}</p>
-        <p><strong>Ticket Type:</strong> {{ passenger.ticket_type }}</p>
+        <p><strong>Tier:</strong>{{passenger.tier}}</p>
+        <p><strong>Price:</strong>{{ getPrice(i) }}</p>
     </div>
     <div class="buttons">
         <button class="navigate-button" (click)="downloadPdf()">Download PDF</button> <!-- Download PDF Button -->

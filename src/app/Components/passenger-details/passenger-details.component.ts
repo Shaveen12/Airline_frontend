@@ -73,15 +73,13 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
 
   createPassengerForm(): FormGroup {
     return this.fb.group({
-      user_id: [''], // Optional user ID for each passenger
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      email_reg: [''], // Optional email for registered passenger
+      full_name: ['', Validators.required],
       dob: ['', Validators.required],
       gender: ['', Validators.required],
       passport_number: ['', Validators.required],
-      address: ['', Validators.required],
-      state: ['', Validators.required],
-      country: ['', Validators.required],
+      mobile_number: ['', Validators.required],
+      tier: ['Guest']
     });
   }
 
@@ -122,27 +120,25 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
   }
 
   fetchUserDetails(index: number): void {
-    const userId = this.passengers.at(index).get('user_id')?.value;
+    const email = this.passengers.at(index).get('email_reg')?.value;
 
-    //console.log(`User ID at index ${index}:`, userId); 
+    console.log(`User ID at index ${index}:`, email ); 
 
-    if (userId && userId.trim() !== '') {
+    if (email && email.trim() !== '') {
       // Check if userId is not empty or whitespace
-      this.userService.getUserDetails(userId).subscribe(
+      this.userService.getUserDetails(email).subscribe(
         (userDetails) => {
           if (userDetails) {
             this.passengers.at(index).patchValue({
-              first_name: userDetails.first_name,
-              last_name: userDetails.last_name,
+              full_name: userDetails.full_name,
               dob: userDetails.dob,
               gender: userDetails.gender,
               passport_number: userDetails.passport_number,
-              address: userDetails.address,
-              state: userDetails.state,
-              country: userDetails.country,
+              mobile_number: userDetails.mobile_num,
+              tier: userDetails.tier
             });
           } else {
-            alert('No user details found for the provided User ID.');
+            alert('No registered user details found for the provided email.');
           }
         },
         (error) => {
@@ -161,18 +157,14 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
       const bookingDataArray = formValues.passengers.map(
         (passenger: any, index: number) => ({
           schedule_id: this.scheduleId!,
-          user_id: passenger.user_id || null,
-          date: new Date().toISOString().split('T')[0],
-          ticket_type: this.ticketType,
+          email: passenger.email_reg || null,
           seat_no: this.selectedSeats[index],
-          first_name: passenger.first_name,
-          last_name: passenger.last_name,
+          full_name: passenger.full_name,
           dob: passenger.dob,
           gender: passenger.gender,
           passport_number: passenger.passport_number,
-          address: passenger.address,
-          state: passenger.state,
-          country: passenger.country,
+          mobile_num: passenger.mobile_number,
+          tier: passenger.tier
         })
       );
 

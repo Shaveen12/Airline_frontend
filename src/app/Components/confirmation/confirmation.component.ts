@@ -22,6 +22,17 @@ export class ConfirmationComponent {
     this.passengerDetailsArray = this.bookingService.getPassengerDetails();
     console.log('Passenger details:', this.passengerDetailsArray);
   }
+  
+  getPrice(index: number): number {
+    switch(this.passengerDetailsArray[index].tier){
+      case 'Frequent':
+        return this.bookingService.getPrice()*0.95;
+      case 'Gold':
+        return this.bookingService.getPrice()*0.91;
+      default:
+        return this.bookingService.getPrice();
+    }
+  }
 
   navigateToRoute() {
     this.router.navigate(['']);

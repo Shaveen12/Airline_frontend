@@ -55,10 +55,10 @@ export class UserService {
     );
   }
 
-  getUserDetails(userId: string): Observable<any> {
+  getUserDetails(email: string): Observable<any> {
     const token = this.getToken(); // Fetch token from sessionStorage
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`${this.apiUrl}/${userId}`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/${email}`, { headers });
   }
 
   getUserBookings(email: string): Observable<any[]> {

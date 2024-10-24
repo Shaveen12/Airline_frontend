@@ -8,9 +8,8 @@ import { API_BASE_URL } from '../config/api.config'
   providedIn: 'root' 
 })
 export class ScheduleService {
-  private economySeats: number = 0;
-  private businessSeats: number = 0;
-  private platinumSeats: number = 0;
+  private price: number = 0;
+
 
   // Properties to store flight details
   private flightNumber: string = '';
@@ -38,18 +37,13 @@ export class ScheduleService {
   getFlightDetails(scheduleId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}${scheduleId}`).pipe(
       tap((data) => {
-        // Store the flight details in the service
-        this.flightNumber = data.flight_no;
-        this.source = data.source_airport_code;
-        this.destination = data.destination_airport_code;
-        this.dateTime = data.date_time;
+ 
+        this.flightNumber = data.flight_number;
+        this.source = data.source_code;
+        this.destination = data.destination_code;
+        this.dateTime = data.departure_time;
 
-        // Optionally store seat counts
-        this.economySeats = data.economy_seats;
-        this.businessSeats = data.business_seats;
-        this.platinumSeats = data.platinum_seats;
 
-        // Optionally log for debugging
         // console.log('Flight details stored:', {
         //   flightNumber: this.flightNumber,
         //   source: this.source,
@@ -59,21 +53,9 @@ export class ScheduleService {
       })
     );
   }
+
+
   
-
-
-  getSeats(type: string): number {
-    switch (type) {
-      case 'Economy':
-        return this.economySeats;
-      case 'Business':
-        return this.businessSeats;
-      case 'Platinum':
-        return this.platinumSeats;
-      default:
-        return 0;
-    }
-  }
 
   // Methods to retrieve stored flight details
   getFlightNo(): string {
