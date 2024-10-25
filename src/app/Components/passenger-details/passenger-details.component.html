@@ -21,7 +21,12 @@
           <div class="form-group user-id-group">
             <!-- <label for="user_id_{{ i }}">User ID (optional)</label> -->
             <input id="user_id_{{ i }}" formControlName="email_reg" type="text" placeholder="Enter Registered Email (Optional)">
-            <button type="button" class="fetch-button" (click)="fetchUserDetails(i)">Auto-fill</button>
+            <button 
+              type="button" 
+              class="fetch-button" 
+              (click)="fetchUserDetails(i)"
+              *ngIf="isUserLoggedIn()"
+            >Auto-fill</button>
           </div>
   
           <div class="form-group">

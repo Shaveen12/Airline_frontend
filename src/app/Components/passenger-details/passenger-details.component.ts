@@ -242,4 +242,8 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
+  isUserLoggedIn(): boolean {
+    return this.userService.isLoggedIn();
+  }
+
 }
