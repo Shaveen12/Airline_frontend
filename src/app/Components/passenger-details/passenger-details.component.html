@@ -17,8 +17,8 @@
       <div formArrayName="passengers" *ngFor="let passenger of passengers.controls; let i = index">
         <h3>Passenger {{ i + 1 }}</h3>
   
-        <div [formGroupName]="i" class="passenger-form" *ngIf="isUserLoggedIn()">
-          <div class="form-group user-id-group">
+        <div [formGroupName]="i" class="passenger-form" >
+          <div class="form-group user-id-group" *ngIf="isUserLoggedIn()">
             <!-- <label for="user_id_{{ i }}">User ID (optional)</label> -->
             <input id="user_id_{{ i }}" formControlName="email_reg" type="text" placeholder="Enter Registered Email (Optional)">
             <button 
