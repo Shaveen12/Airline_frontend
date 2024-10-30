@@ -214,19 +214,13 @@ export class PassengerDetailsComponent implements OnInit, OnDestroy {
 
     bookingDataArray.forEach((booking, index) => {
       message += `Passenger ${index + 1}:\n`;
-      message += `Schedule ID: ${booking.schedule_id}\n`;
-      message += `User ID: ${booking.user_id ? booking.user_id : 'N/A'}\n`;
-      message += `First Name: ${booking.first_name}\n`;
-      message += `Last Name: ${booking.last_name}\n`;
+      message += `Full Name: ${booking.full_name}\n`;
       message += `Date of Birth: ${booking.dob}\n`;
       message += `Gender: ${booking.gender}\n`;
       message += `Passport Number: ${booking.passport_number}\n`;
-      message += `Address: ${booking.address}\n`;
-      message += `State: ${booking.state}\n`;
-      message += `Country: ${booking.country}\n`;
-      message += `Seat Number: ${booking.seat_no}\n`;
-      message += `Ticket Type: ${booking.ticket_type}\n`;
-      message += `Date: ${booking.date}\n\n`;
+      message += `Seat Number: ${booking.seat_no}\n\n`;
+      
+    
 
       // Adding a separator between passengers for clarity
       message += '------------------------------------------\n\n';
