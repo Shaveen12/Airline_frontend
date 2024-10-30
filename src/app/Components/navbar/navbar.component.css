@@ -10,7 +10,7 @@
 .navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* Space between brand and nav items */
 }
 
 /* Navbar Brand */
@@ -33,14 +33,20 @@
   margin: 0;
   padding: 0;
   align-items: center;
-  justify-content: center;
-  flex: 1;
+  flex: 1; /* Allow navbar-nav to take up available space */
+}
+
+/* Align Home and Dashboard to the right */
+.navbar-nav:last-child {
+  margin-left: auto; /* Pushes this navbar-nav to the right */
+  justify-content: flex-end; /* Aligns items to the right */
 }
 
 .nav-item {
   margin-left: 20px;
 }
 
+/* Navbar Links */
 .nav-link {
   font-size: 16px;
   color: #ffffff;
@@ -68,7 +74,6 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  margin-left: auto; /* Aligns logout button to the far right */
 }
 
 .logout-button:hover {
@@ -80,14 +85,6 @@
   font-size: 20px;
   color: #007bff;
   font-weight: bold;
-  background-color: #e0f3ff;
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: 1px solid #007bff;
-  text-align: center;
-  outline: none;
-  box-shadow: none;
-  margin: 0 auto;
 }
 
 /* Responsive Design */
