@@ -155,11 +155,7 @@ export class BookingService {
       doc.text(`Passenger ${index + 1}`, 10, yOffset);
       yOffset += 8;
   
-      doc.text(`Schedule ID: ${passenger.schedule_id}`, 10, yOffset);
-      yOffset += 8;
-      doc.text(`First Name: ${passenger.first_name}`, 10, yOffset);
-      yOffset += 8;
-      doc.text(`Last Name: ${passenger.last_name}`, 10, yOffset);
+      doc.text(`Full Name: ${passenger.full_name_name}`, 10, yOffset);
       yOffset += 8;
       doc.text(`Date of Birth: ${passenger.dob}`, 10, yOffset);
       yOffset += 8;
@@ -167,16 +163,8 @@ export class BookingService {
       yOffset += 8;
       doc.text(`Passport Number: ${passenger.passport_number}`, 10, yOffset);
       yOffset += 8;
-      doc.text(`Address: ${passenger.address}`, 10, yOffset);
-      yOffset += 8;
-      doc.text(`State: ${passenger.state}`, 10, yOffset);
-      yOffset += 8;
-      doc.text(`Country: ${passenger.country}`, 10, yOffset);
-      yOffset += 8;
       doc.text(`Seat Number: ${passenger.seat_no}`, 10, yOffset);
-      yOffset += 8;
-      doc.text(`Ticket Type: ${passenger.ticket_type}`, 10, yOffset);
-      yOffset += 15; // Increased space after each passenger
+      yOffset += 15;
   
       // Check if we need to add a new page
       if (yOffset > 270) {
