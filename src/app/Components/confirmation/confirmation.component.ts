@@ -21,6 +21,11 @@ export class ConfirmationComponent {
   ) {
     this.passengerDetailsArray = this.bookingService.getPassengerDetails();
     console.log('Passenger details:', this.passengerDetailsArray);
+    
+    // Check if passengerDetailsArray is empty and navigate to home if true
+    if (this.passengerDetailsArray.length === 0) {
+      this.router.navigate(['']);
+    }
   }
   
   getPrice(index: number): number {
