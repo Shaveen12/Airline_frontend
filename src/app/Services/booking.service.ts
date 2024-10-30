@@ -163,7 +163,7 @@ export class BookingService {
       doc.text(`Passenger ${index + 1}`, 10, yOffset);
       yOffset += 8;
   
-      doc.text(`Full Name: ${passenger.full_name_name}`, 10, yOffset);
+      doc.text(`Full Name: ${passenger.full_name}`, 10, yOffset);
       yOffset += 8;
       doc.text(`Date of Birth: ${passenger.dob}`, 10, yOffset);
       yOffset += 8;
