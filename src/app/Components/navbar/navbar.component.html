@@ -1,6 +1,19 @@
 <nav class="navbar">
-    <div class="navbar-container">
-      <a routerLink="/" class="navbar-brand">B Airwayz</a>
+  <div class="navbar-container">
+    <a routerLink="/" class="navbar-brand">B Airwayz</a>
+
+    <!-- Center "Admin Dashboard" if admin is logged in -->
+    <ul class="navbar-nav" *ngIf="adminService.isAdminLoggedIn; else defaultNav">
+      <li class="nav-item centered">
+        <span class="admin-dashboard">Admin Dashboard</span>
+      </li>
+    </ul>
+
+    <!-- Logout Button on the right -->
+    <button *ngIf="adminService.isAdminLoggedIn" (click)="logout()" class="logout-button">Logout</button>
+
+    <!-- Default navigation links (Home and Dashboard) when admin is not logged in -->
+    <ng-template #defaultNav>
       <ul class="navbar-nav">
         <li class="nav-item">
           <a routerLink="/" routerLinkActive="active" class="nav-link">Home</a>
@@ -9,6 +22,6 @@
           <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a>
         </li>
       </ul>
-    </div>
-  </nav>
-  
+    </ng-template>
+  </div>
+</nav>

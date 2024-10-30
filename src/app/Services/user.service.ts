@@ -28,6 +28,7 @@ interface LoginResponse {
 export class UserService {
   private apiUrl = `${API_BASE_URL}/user`; 
   private userSubject = new BehaviorSubject<any>(null); // Holds the logged-in user's data
+  private isAdmin = false;
 
   constructor(private http: HttpClient) {
     // Load the user from sessionStorage if available

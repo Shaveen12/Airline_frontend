@@ -26,13 +26,17 @@ export class DashboardComponent implements OnInit {
 
       this.userService.getUserBookings(this.user.email).subscribe(bookings => {
         const now = new Date();
+        // console.log(now);
         console.log(bookings)
         bookings.forEach(booking => {
           booking.sourceLocation = this.getAirportLocation(booking.from_destination);
           booking.destinationLocation = this.getAirportLocation(booking.to_destination);
-          if (new Date(booking.date_time) > now) {
+          // console.log(new Date(booking.departure_time))
+          if (new Date(booking.departure_time) > now) {
+            console.log("Inside future bookings")
             this.upcomingFlights.push(booking);
           } else {
+            console.log("Inside past booking")
             this.pastFlights.push(booking);
           }
         });

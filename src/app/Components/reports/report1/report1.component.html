@@ -1,0 +1,71 @@
+<div class="report1">
+    <!-- Back to Analytics Button -->
+    <button (click)="goBack()" class="back-button">Back to Analytics</button>
+  
+    <h2>Flight Age Data Report</h2>
+  
+    <!-- Input for Flight Number -->
+    <div class="input-group">
+      <label for="flightNumber">Flight Number:</label>
+      <input type="text" id="flightNumber" [(ngModel)]="flightNumber" placeholder="Enter flight number" />
+      <button (click)="fetchFlightData()">Get Report</button>
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Adult Passengers -->
+    <div *ngIf="adultPassengers.length > 0">
+      <h3>Adults (18 and above)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Flight Count</th>
+            <th>Tier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let adult of adultPassengers">
+            <td>{{ adult.full_name }}</td>
+            <td>{{ adult.gender }}</td>
+            <td>{{ adult.D_O_B }}</td>
+            <td>{{ adult.flight_count }}</td>
+            <td>{{ adult.tier }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Child Passengers -->
+    <div *ngIf="childPassengers.length > 0">
+      <h3>Children (Under 18)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Passport Number</th>
+            <th>Flight Count</th>
+            <th>Tier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let child of childPassengers">
+            <td>{{ child.full_name }}</td>
+            <td>{{ child.gender }}</td>
+            <td>{{ child.D_O_B }}</td>
+            <td>{{ child.passport_number }}</td>
+            <td>{{ child.flight_count }}</td>
+            <td>{{ child.tier }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

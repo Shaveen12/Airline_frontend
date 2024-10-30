@@ -1,0 +1,30 @@
+<div class="report2">
+    <button (click)="goBack()" class="back-button">Back to Analytics</button>
+    <h2>Passenger Count Report</h2>
+  
+    <!-- Input fields for Destination Code and Date Range -->
+    <div class="input-group">
+      <label for="destinationCode">Destination Code:</label>
+      <input type="text" id="destinationCode" [(ngModel)]="destinationCode" placeholder="Enter destination code" />
+  
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" [(ngModel)]="startDate" />
+  
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" [(ngModel)]="endDate" />
+      
+      <button (click)="fetchPassengerCount()">Get Report</button>
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Display Passenger Count Data -->
+    <div *ngIf="passengerCount !== null">
+      <h3>Passenger Count for Destination {{ destinationCode }}</h3>
+      <p>From {{ startDate }} to {{ endDate }}: <strong>{{ passengerCount }}</strong> passengers</p>
+    </div>
+  </div>
+  

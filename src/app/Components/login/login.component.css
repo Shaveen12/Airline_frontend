@@ -73,3 +73,21 @@
 .btn-secondary:hover {
   background-color: #5a6268;
 }
+
+/* Admin Button Styling */
+.btn-admin {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745; /* Distinctive green color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px; /* Align spacing with the other buttons */
+}
+
+.btn-admin:hover {
+  background-color: #218838; /* Darker shade on hover */
+}

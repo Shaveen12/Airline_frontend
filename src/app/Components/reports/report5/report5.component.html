@@ -1,0 +1,29 @@
+<div class="report5">
+    <button (click)="goBack()" class="back-button">Back to Analytics</button>
+    
+    <h2>Revenue by Aircraft Model</h2>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Display Revenue Data by Aircraft Model -->
+    <div *ngIf="revenueData.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Aircraft Model</th>
+            <th>Total Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of revenueData">
+            <td>{{ item.aircraft_model }}</td>
+            <td>{{ item.total_revenue | currency:'USD':'symbol' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

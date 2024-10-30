@@ -1,0 +1,43 @@
+<div class="report4">
+    <button (click)="goBack()" class="back-button">Back to Analytics</button>
+    
+    <h2>Flight Data by Route</h2>
+  
+    <!-- Input fields for Source and Destination Codes -->
+    <div class="input-group">
+      <label for="sourceCode">Source Code:</label>
+      <input type="text" id="sourceCode" [(ngModel)]="sourceCode" placeholder="Enter source code" />
+  
+      <label for="destinationCode">Destination Code:</label>
+      <input type="text" id="destinationCode" [(ngModel)]="destinationCode" placeholder="Enter destination code" />
+      
+      <button (click)="fetchFlightData()">Get Report</button>
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Display Flight Data -->
+    <div *ngIf="flightData.length > 0">
+      <h3>Flights from {{ sourceCode }} to {{ destinationCode }}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Flight Number</th>
+            <th>Status</th>
+            <th>Passenger Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let flight of flightData">
+            <td>{{ flight.flight_number }}</td>
+            <td>{{ flight.status }}</td>
+            <td>{{ flight.passenger_count }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

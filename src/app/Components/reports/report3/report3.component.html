@@ -1,0 +1,41 @@
+<div class="report3">
+    <button (click)="goBack()" class="back-button">Back to Analytics</button>
+    
+    <h2>Number of Bookings by Tier</h2>
+  
+    <!-- Input fields for Date Range -->
+    <div class="input-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" [(ngModel)]="startDate" />
+  
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" [(ngModel)]="endDate" />
+      
+      <button (click)="fetchBookingsByTier()">Get Report</button>
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Display Bookings Data by Tier -->
+    <div *ngIf="bookingData.length > 0">
+      <h3>Bookings from {{ startDate }} to {{ endDate }}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Number of Bookings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookingData">
+            <td>{{ booking.tier }}</td>
+            <td>{{ booking.no_of_bookings }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

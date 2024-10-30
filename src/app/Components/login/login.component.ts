@@ -36,5 +36,9 @@ export class LoginComponent {
   navigateToRegister() {
     this.router.navigate(['/register']);  // Navigates to the registration page
   }
+
+  navigateToAdminLogin() {
+    this.router.navigate(['/admin-login']);
+  }
   
 }
