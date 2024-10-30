@@ -36,6 +36,7 @@ export class ConfirmationComponent {
 
   navigateToRoute() {
     this.router.navigate(['']);
+    this.bookingService.clear();
   }
 
   downloadPdf() {

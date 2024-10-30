@@ -120,6 +120,14 @@ export class BookingService {
     return this.price;
   }
   
+  clear() {
+    this.scheduleId = null;
+    this.bookingDetails = {};
+    this.selectedSeats = [];
+    this.passengerDetails = [];
+    this.price = 0;
+    this.maxSeats = 1;
+  }
 
 
   // Method to download the passenger details as a PDF
