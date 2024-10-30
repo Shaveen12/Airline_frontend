@@ -75,7 +75,11 @@ export class HomeComponent {
       // Call the service to get flights using the observer object
       this.scheduleService.getFlights(startDate, endDate, temp1, temp2).subscribe({
         next: (data) => {
-          this.flights = data[0]; // Handle the API response
+          const currentTime = new Date();
+          const twoHoursLater = new Date(currentTime.getTime() + 2 * 60 * 60 * 1000); // Current time + 2 hours
+          
+          this.flights = data[0].filter((flight: { departure_time: string | number | Date; }) => new Date(flight.departure_time) >= twoHoursLater); // Filter flights
+          
           if (this.flights.length === 0) {
             this.noFlightsFound = true; // If the response is empty, show no flights found
           }
